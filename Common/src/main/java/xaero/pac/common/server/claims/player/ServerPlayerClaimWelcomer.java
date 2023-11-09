@@ -78,7 +78,7 @@ public class ServerPlayerClaimWelcomer {
 				} else
 					subTitleText = properDesc;
 			}
-			subTitleText = subTitleText.withStyle(s -> s.withColor(isOwner ? ChatFormatting.DARK_GREEN : hasAccess ? ChatFormatting.GOLD : ChatFormatting.DARK_RED));
+			subTitleText = subTitleText.withStyle(s -> s.withColor(isOwner ? ChatFormatting.GREEN : hasAccess ? ChatFormatting.GOLD : ChatFormatting.RED));
 
 			MutableComponent subTitle = Component.literal("□ ").withStyle(s -> s.withColor(claimColor));
 			subTitle.getSiblings().add(subTitleText);
