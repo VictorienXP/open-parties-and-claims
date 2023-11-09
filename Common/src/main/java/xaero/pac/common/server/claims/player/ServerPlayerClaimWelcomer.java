@@ -55,24 +55,28 @@ public class ServerPlayerClaimWelcomer {
 			UUID currentClaimId = currentClaim == null ? null : currentClaim.getPlayerId();
 			IPlayerClaimInfo<IPlayerDimensionClaims<IPlayerClaimPosList>> playerClaimInfo = currentClaim == null ? null : serverData.getServerClaimsManager().getPlayerInfo(currentClaimId);
 			boolean isOwner = !mainCap.isClaimsNonallyMode() && currentClaim != null && Objects.equals(currentClaimId, player.getUUID());
+			boolean isServerClaim = Objects.equals(currentClaimId, PlayerConfig.SERVER_CLAIM_UUID);
 			boolean hasAccess = isOwner || serverData.getChunkProtection().hasChunkAccess(serverData.getChunkProtection().getClaimConfig(serverData.getPlayerConfigs(), currentClaim), player, null);
 
 			IPlayerConfig claimConfig = serverData.getChunkProtection().getClaimConfig(serverData.getPlayerConfigs(), currentClaim);
 			String customName = claimConfig.getEffective(PlayerConfigOptions.CLAIMS_NAME);
+			boolean hasCustomName = customName != null && !customName.isEmpty();
 			int claimColor = claimConfig.getEffective(PlayerConfigOptions.CLAIMS_COLOR);
 			MutableComponent subTitleText;
 			if (playerClaimInfo == null)
 				subTitleText = adaptiveLocalizer.getFor(player, customName == null || customName.isEmpty() ? "gui.xaero_pac_title_entered_wilderness" : customName);
+			else if (isServerClaim && hasCustomName)
+				subTitleText = Component.literal(customName);
 			else {
 				MutableComponent properDesc;
 				Component forceloadedComponent = currentClaim.isForceloadable() ? adaptiveLocalizer.getFor(player, "gui.xaero_pac_marked_for_forceload") : Component.literal("");
-				if (Objects.equals(currentClaimId, PlayerConfig.SERVER_CLAIM_UUID))
+				if (isServerClaim)
 					properDesc = adaptiveLocalizer.getFor(player, "gui.xaero_pac_title_entered_server_claim", forceloadedComponent);
 				else if (Objects.equals(currentClaimId, PlayerConfig.EXPIRED_CLAIM_UUID))
 					properDesc = adaptiveLocalizer.getFor(player, "gui.xaero_pac_title_entered_expired_claim", forceloadedComponent);
 				else
 					properDesc = adaptiveLocalizer.getFor(player, "gui.xaero_pac_title_entered_claim", playerClaimInfo.getPlayerUsername(), forceloadedComponent);
-				if (customName != null && !customName.isEmpty()) {
+				if (hasCustomName) {
 					subTitleText = Component.literal(customName + " - ");
 					subTitleText.getSiblings().add(properDesc);
 				} else
