@@ -2,7 +2,7 @@
     "schemaVersion": 1,
     "id": "${mod_id}",
     "version": "${version}",
-  
+
     "name": "${mod_display_name}",
     "description": "${description}",
     "authors": [
@@ -13,10 +13,10 @@
       "homepage": "${homepage}",
       "sources": "${sources}"
     },
-  
+
     "license": "${license}",
     "icon": "${mod_id}.png",
-  
+
     "environment": "*",
     "entrypoints": {
       "client": [
@@ -29,7 +29,7 @@
     "mixins": [
       "${mod_id}.mixins.json"
     ],
-  
+
     "depends": {
       "fabricloader": "${fabric_loader_version_range}",
       "fabric": "${fabric_api_range}",
@@ -43,4 +43,3 @@
       "opaccreatesupport": "${fabric_extension_create_breaks_range}"
     }
   }
-  
