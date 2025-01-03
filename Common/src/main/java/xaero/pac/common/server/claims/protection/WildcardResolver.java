@@ -34,7 +34,8 @@ public class WildcardResolver {
 	private static final Function<String, String> WILDCARD_TO_REGEX = s -> WILDCARD_TO_REGEX_REPLACE_PATTERN.matcher(s).replaceAll("\\\\$1").replace("*", ".*");
 
 	public <T> List<T> resolveResourceLocations(Function<ResourceLocation, T> getter, Iterable<T> iterable, Function<T, ResourceLocation> keyGetter, String string){
-		if(ResourceLocation.isValidResourceLocation(string)) {
+		boolean validResourceLocation = ResourceLocation.isValidResourceLocation(string) && !containsWildcardCharacters(string);//additional char check because of mods (e.g. AAA Particles)
+		if(validResourceLocation) {
 			T object = getter.apply(new ResourceLocation(string));
 			return object == null ? List.of() : List.of(object);
 		}
@@ -55,6 +56,10 @@ public class WildcardResolver {
 			return null;
 		}
 		return result;
+	}
+
+	private boolean containsWildcardCharacters(String string){
+		return string.contains("(") || string.contains(")") || string.contains("|") || string.contains("*");
 	}
 
 }
