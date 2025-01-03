@@ -30,6 +30,7 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import xaero.pac.OpenPartiesAndClaims;
@@ -209,11 +210,11 @@ public class ConfigGetOrHelpCommand {
 				if(playerData.hasMod())
 					OpenPartiesAndClaims.INSTANCE.getPacketHandler().sendToPlayer(sourcePlayer, new ClientboundPlayerConfigHelpPacket(option.getId()));
 				else {
-					String translatedComment = serverData.getAdaptiveLocalizer().getDefaultTranslation(option.getCommentTranslation(), (Object[])option.getCommentTranslationArgs());
+					String translatedComment = serverData.getAdaptiveLocalizer().getDefaultTranslation(option.getCommentTranslation());
 					if(translatedComment.equals("default"))
 						translatedComment = option.getComment();
 					sourcePlayer.sendMessage(new TextComponent(""), sourcePlayer.getUUID());
-					sourcePlayer.sendMessage(new TextComponent(translatedComment), sourcePlayer.getUUID());
+					sourcePlayer.sendMessage(new TranslatableComponent(translatedComment, (Object[])option.getCommentTranslationArgs()), sourcePlayer.getUUID());
 				}
 				return 1;
 			}
