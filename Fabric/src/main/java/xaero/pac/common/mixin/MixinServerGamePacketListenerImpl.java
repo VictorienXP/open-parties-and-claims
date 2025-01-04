@@ -19,14 +19,9 @@
 package xaero.pac.common.mixin;
 
 import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xaero.pac.common.server.core.ServerCore;
 import xaero.pac.common.server.core.accessor.IServerGamePacketListenerImpl;
 
 @Mixin(ServerGamePacketListenerImpl.class)
@@ -34,12 +29,6 @@ public class MixinServerGamePacketListenerImpl implements IServerGamePacketListe
 
 	@Shadow
 	private Connection connection;
-
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/game/ServerboundInteractPacket;dispatch(Lnet/minecraft/network/protocol/game/ServerboundInteractPacket$Handler;)V"), method = "handleInteract", cancellable = true)
-	public void onHandleInteract(ServerboundInteractPacket packet, CallbackInfo ci){
-		if(!ServerCore.canInteract((ServerGamePacketListenerImpl)(Object)this, packet))
-			ci.cancel();
-	}
 
 	@Override
 	public Connection getXaero_OPAC_connection() {
