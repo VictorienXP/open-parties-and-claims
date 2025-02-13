@@ -1,0 +1,7 @@
+{
+	"gui.xaero_pac_title_entered_wilderness" : "Terres sauvages",
+	"gui.xaero_pac_title_entered_claim" : "Claim de %1$s%2$s",
+	"gui.xaero_pac_title_entered_server_claim" : "Dyonizel%1$s",
+	"gui.xaero_pac_title_entered_expired_claim" : "Claim expiré%1$s",
+	"gui.xaero_pac_marked_for_forceload" : " (peut rester chargé)"
+}

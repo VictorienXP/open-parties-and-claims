@@ -184,7 +184,7 @@
 
 	"gui.xaero_pac_title_entered_wilderness" : "Wilderness",
 	"gui.xaero_pac_title_entered_claim" : "%1$s's Claim%2$s",
-	"gui.xaero_pac_title_entered_server_claim" : "Server Claim%1$s",
+	"gui.xaero_pac_title_entered_server_claim" : "Dyonizel%1$s",
 	"gui.xaero_pac_title_entered_expired_claim" : "Expired Claim%1$s",
 	"gui.xaero_pac_marked_for_forceload" : " (Forceloadable)",
 	
